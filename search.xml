@@ -4,7 +4,32 @@
   
     
     <entry>
-      <title>學習 / GitHub + Hexo 架設部落格</title>
+      <title>[Ruby] sub 與 gsub</title>
+      <link href="/2021/07/24/%E5%AD%B8%E7%BF%92%20/Ruby%20-%20sub-%E8%88%87-gsub/"/>
+      <url>/2021/07/24/%E5%AD%B8%E7%BF%92%20/Ruby%20-%20sub-%E8%88%87-gsub/</url>
+      
+        <content type="html"><![CDATA[<p>想把字串裡的某些字換成其他字的時候就可以使用<code>sub</code> 與 <code>gsub</code>，但這兩者在使用上還是不太一樣</p><span id="more"></span><p><code>sub</code> 替換掉 <strong>第一個</strong>  符合的字串並回傳新的字串，但不改變原本的值<br><code>gsub</code> 替換掉 <strong>所有</strong> 符合的字串並回傳新的字串，但不改變原本的值<br><code>sub!</code> 替換掉 <strong>第一個</strong> 符合的字串且改變原本的值<br><code>gsub!</code> 替換掉 <strong>所有</strong> 符合的字串且改變原本的值</p><p>用個簡單的範例～<br><code>sub</code> 的場合<br><img src="/images/ruby-sub.png" width="60%" height="60%" title="ruby-sub" alt="ruby-sub" style="display: inline;"></p><p><code>gsub</code> 的場合<br><img src="/images/ruby-gsub.png" width="60%" height="60%" title="ruby-gsub" alt="ruby-gsub" style="display: inline;"></p><p><code>sub!</code> 的場合<br><img src="/images/ruby-sub!.png" width="60%" height="60%" title="ruby-sub!" alt="ruby-sub!" style="display: inline;"></p><p><code>gsub!</code> 的場合<br><img src="/images/ruby-gsub!.png" width="60%" height="60%" title="ruby-gsub!" alt="ruby-gsub!" style="display: inline;"></p><p>參考資料：<br><a href="https://www.dotnetperls.com/sub-ruby">Ruby Sub, gsub: Replace String</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 學習筆記 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Ruby </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>[Hexo] 架設部落格</title>
       <link href="/2021/07/17/%E5%AD%B8%E7%BF%92%20/%20GitHub%20+%20Hexo%20%E6%9E%B6%E8%A8%AD%E9%83%A8%E8%90%BD%E6%A0%BC/"/>
       <url>/2021/07/17/%E5%AD%B8%E7%BF%92%20/%20GitHub%20+%20Hexo%20%E6%9E%B6%E8%A8%AD%E9%83%A8%E8%90%BD%E6%A0%BC/</url>
       
@@ -29,7 +54,7 @@
     
     
     <entry>
-      <title>Hexo - Hello World</title>
+      <title>[Hexo] Hello World</title>
       <link href="/2021/07/09/hello-world/"/>
       <url>/2021/07/09/hello-world/</url>
       

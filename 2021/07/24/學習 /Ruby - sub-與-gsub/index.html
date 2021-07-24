@@ -19,25 +19,33 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"tang-tou.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="我姓唐，唐朝的唐。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="庭院深幾許">
-<meta property="og:url" content="https://tang-tou.github.io/categories/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/index.html">
+<meta name="description" content="想把字串裡的某些字換成其他字的時候就可以使用sub 與 gsub，但這兩者在使用上還是不太一樣">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Ruby] sub 與 gsub">
+<meta property="og:url" content="https://tang-tou.github.io/2021/07/24/%E5%AD%B8%E7%BF%92%20/Ruby%20-%20sub-%E8%88%87-gsub/index.html">
 <meta property="og:site_name" content="庭院深幾許">
-<meta property="og:description" content="我姓唐，唐朝的唐。">
+<meta property="og:description" content="想把字串裡的某些字換成其他字的時候就可以使用sub 與 gsub，但這兩者在使用上還是不太一樣">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://tang-tou.github.io/images/ruby-sub.png">
+<meta property="og:image" content="https://tang-tou.github.io/images/ruby-gsub.png">
+<meta property="og:image" content="https://tang-tou.github.io/images/ruby-sub!.png">
+<meta property="og:image" content="https://tang-tou.github.io/images/ruby-gsub!.png">
+<meta property="article:published_time" content="2021-07-24T08:09:47.000Z">
+<meta property="article:modified_time" content="2021-07-24T10:37:37.884Z">
 <meta property="article:author" content="Tang">
+<meta property="article:tag" content="Ruby">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tang-tou.github.io/images/ruby-sub.png">
 
 
-<link rel="canonical" href="https://tang-tou.github.io/categories/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/">
+<link rel="canonical" href="https://tang-tou.github.io/2021/07/24/%E5%AD%B8%E7%BF%92%20/Ruby%20-%20sub-%E8%88%87-gsub/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-TW","comments":"","permalink":"","path":"categories/學習筆記/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://tang-tou.github.io/2021/07/24/%E5%AD%B8%E7%BF%92%20/Ruby%20-%20sub-%E8%88%87-gsub/","path":"2021/07/24/學習 /Ruby - sub-與-gsub/","title":"[Ruby] sub 與 gsub"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>分類: 學習筆記 | 庭院深幾許</title>
+<title>[Ruby] sub 與 gsub | 庭院深幾許</title>
   
 
 
@@ -180,91 +188,124 @@
 </noscript>
 
 
-    <div class="main-inner category posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h2 class="collection-header">學習筆記
-          <small>分類</small>
-        </h2>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://tang-tou.github.io/2021/07/24/%E5%AD%B8%E7%BF%92%20/Ruby%20-%20sub-%E8%88%87-gsub/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Tang">
+      <meta itemprop="description" content="我姓唐，唐朝的唐。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="庭院深幾許">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Ruby] sub 與 gsub
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+
+      <time title="創建時間：2021-07-24 16:09:47 / 修改時間：18:37:37" itemprop="dateCreated datePublished" datetime="2021-07-24T16:09:47+08:00">2021-07-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">學習筆記</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/07/24/%E5%AD%B8%E7%BF%92%20/Ruby%20-%20sub-%E8%88%87-gsub/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/07/24/學習 /Ruby - sub-與-gsub/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>想把字串裡的某些字換成其他字的時候就可以使用<code>sub</code> 與 <code>gsub</code>，但這兩者在使用上還是不太一樣</p>
+<span id="more"></span>
+
+<p><code>sub</code> 替換掉 <strong>第一個</strong>  符合的字串並回傳新的字串，但不改變原本的值<br><code>gsub</code> 替換掉 <strong>所有</strong> 符合的字串並回傳新的字串，但不改變原本的值<br><code>sub!</code> 替換掉 <strong>第一個</strong> 符合的字串且改變原本的值<br><code>gsub!</code> 替換掉 <strong>所有</strong> 符合的字串且改變原本的值</p>
+<p>用個簡單的範例～<br><code>sub</code> 的場合<br><img src="/images/ruby-sub.png" width="60%" height="60%" title="ruby-sub" alt="ruby-sub" style="display: inline;"></p>
+<p><code>gsub</code> 的場合<br><img src="/images/ruby-gsub.png" width="60%" height="60%" title="ruby-gsub" alt="ruby-gsub" style="display: inline;"></p>
+<p><code>sub!</code> 的場合<br><img src="/images/ruby-sub!.png" width="60%" height="60%" title="ruby-sub!" alt="ruby-sub!" style="display: inline;"></p>
+<p><code>gsub!</code> 的場合<br><img src="/images/ruby-gsub!.png" width="60%" height="60%" title="ruby-gsub!" alt="ruby-gsub!" style="display: inline;"></p>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="https://www.dotnetperls.com/sub-ruby">Ruby Sub, gsub: Replace String</a></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-07-24T16:09:47+08:00"
-              content="2021-07-24">
-          07-24
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/07/24/%E5%AD%B8%E7%BF%92%20/Ruby%20-%20sub-%E8%88%87-gsub/" itemprop="url">
-            <span itemprop="name">[Ruby] sub 與 gsub</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Ruby/" rel="tag"><i class="fa fa-tag"></i> Ruby</a>
+          </div>
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/07/17/%E5%AD%B8%E7%BF%92%20/%20GitHub%20+%20Hexo%20%E6%9E%B6%E8%A8%AD%E9%83%A8%E8%90%BD%E6%A0%BC/" rel="prev" title="[Hexo] 架設部落格">
+                  <i class="fa fa-chevron-left"></i> [Hexo] 架設部落格
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-07-17T19:46:56+08:00"
-              content="2021-07-17">
-          07-17
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/07/17/%E5%AD%B8%E7%BF%92%20/%20GitHub%20+%20Hexo%20%E6%9E%B6%E8%A8%AD%E9%83%A8%E8%90%BD%E6%A0%BC/" itemprop="url">
-            <span itemprop="name">[Hexo] 架設部落格</span>
-          </a>
-      </div>
 
-      
-    </header>
-  </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-07-09T15:19:48+08:00"
-              content="2021-07-09">
-          07-09
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/07/09/hello-world/" itemprop="url">
-            <span itemprop="name">[Hexo] Hello World</span>
-          </a>
-      </div>
 
-      
-    </header>
-  </article>
-
-    </div>
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
   </div>
   
-  
-  
-
 </div>
   </main>
 
