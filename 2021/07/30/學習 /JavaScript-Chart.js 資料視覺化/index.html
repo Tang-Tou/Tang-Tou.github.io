@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"tang-tou.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="在之前的專案因為想要將資料以圖表呈現，查找資料的時候發現 Chart.js 的資料很多，官方文件也寫得很清楚，就決定使用它了！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[JavaScript] Chart.js 資料視覺化">
+<meta property="og:url" content="https://tang-tou.github.io/2021/07/30/%E5%AD%B8%E7%BF%92%20/JavaScript-Chart.js%20%E8%B3%87%E6%96%99%E8%A6%96%E8%A6%BA%E5%8C%96/index.html">
+<meta property="og:site_name" content="庭院深幾許">
+<meta property="og:description" content="在之前的專案因為想要將資料以圖表呈現，查找資料的時候發現 Chart.js 的資料很多，官方文件也寫得很清楚，就決定使用它了！">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://tang-tou.github.io/images/js-chart-webpack.png">
+<meta property="og:image" content="https://tang-tou.github.io/images/js-chart-bar.png">
+<meta property="article:published_time" content="2021-07-30T08:34:36.000Z">
+<meta property="article:modified_time" content="2021-08-03T15:35:38.669Z">
+<meta property="article:author" content="Tang">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tang-tou.github.io/images/js-chart-webpack.png">
+
+
+<link rel="canonical" href="https://tang-tou.github.io/2021/07/30/%E5%AD%B8%E7%BF%92%20/JavaScript-Chart.js%20%E8%B3%87%E6%96%99%E8%A6%96%E8%A6%BA%E5%8C%96/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://tang-tou.github.io/2021/07/30/%E5%AD%B8%E7%BF%92%20/JavaScript-Chart.js%20%E8%B3%87%E6%96%99%E8%A6%96%E8%A6%BA%E5%8C%96/","path":"2021/07/30/學習 /JavaScript-Chart.js 資料視覺化/","title":"[JavaScript] Chart.js 資料視覺化"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>[JavaScript] Chart.js 資料視覺化 | 庭院深幾許</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導覽欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">庭院深幾許</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>所有文章</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Tang"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Tang</p>
+  <div class="site-description" itemprop="description">我姓唐，唐朝的唐。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Tang-Tou" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Tang-Tou" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tyu4520@gmail.com" title="E-Mail → mailto:tyu4520@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/tang-iting/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;tang-iting&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://tang-tou.github.io/2021/07/30/%E5%AD%B8%E7%BF%92%20/JavaScript-Chart.js%20%E8%B3%87%E6%96%99%E8%A6%96%E8%A6%BA%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Tang">
+      <meta itemprop="description" content="我姓唐，唐朝的唐。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="庭院深幾許">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [JavaScript] Chart.js 資料視覺化
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-07-30 16:34:36" itemprop="dateCreated datePublished" datetime="2021-07-30T16:34:36+08:00">2021-07-30</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-08-03 23:35:38" itemprop="dateModified" datetime="2021-08-03T23:35:38+08:00">2021-08-03</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">學習筆記</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/07/30/%E5%AD%B8%E7%BF%92%20/JavaScript-Chart.js%20%E8%B3%87%E6%96%99%E8%A6%96%E8%A6%BA%E5%8C%96/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/07/30/學習 /JavaScript-Chart.js 資料視覺化/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>在之前的專案因為想要將資料以圖表呈現，查找資料的時候發現 Chart.js 的資料很多，官方文件也寫得很清楚，就決定使用它了！</p>
+<span id="more"></span>
+<p>Chart.js 是個具備多樣化設定的 JavaScript Library，支援 8 種圖表類型，也支援混合圖表。<br>在官網上的安裝說明是使用 <code>npm chart.js</code>，但專案是使用 Rails 的關係所以使用 <code>yarn chart.js</code>，<br>在 Integration 頁面有提供許多方式載入，在專案中是使用 webpack，所以就選用 webpack 的方式~<br><img src="/images/js-chart-webpack.png" width="60%" height="60%" title="js-chart-webpack" alt="js-chart-webpack" style="display: inline;"></p>
+<p>當初在做專案的時候不知道是鬼遮眼還是累昏了，完全沒有看到 webpack 的方式，將所有載入方式都使用過一遍才發現有提供 webpack，<br>之後應該要再更靜下心來看文件才行QHQ<br>總之，在 JS 檔裡先輸入以下：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> {</span><br><span class="line">  Chart,</span><br><span class="line">  ArcElement,</span><br><span class="line">  LineElement,</span><br><span class="line">  BarElement,</span><br><span class="line">  PointElement,</span><br><span class="line">  BarController,</span><br><span class="line">  BubbleController,</span><br><span class="line">  DoughnutController,</span><br><span class="line">  LineController,</span><br><span class="line">  PieController,</span><br><span class="line">  PolarAreaController,</span><br><span class="line">  RadarController,</span><br><span class="line">  ScatterController,</span><br><span class="line">  CategoryScale,</span><br><span class="line">  LinearScale,</span><br><span class="line">  LogarithmicScale,</span><br><span class="line">  RadialLinearScale,</span><br><span class="line">  TimeScale,</span><br><span class="line">  TimeSeriesScale,</span><br><span class="line">  Decimation,</span><br><span class="line">  Filler,</span><br><span class="line">  Legend,</span><br><span class="line">  Title,</span><br><span class="line">  Tooltip,</span><br><span class="line">  SubTitle</span><br><span class="line">} <span class="keyword">from</span> <span class="string">'chart.js'</span>;</span><br><span class="line"></span><br><span class="line">Chart.register(</span><br><span class="line">  ArcElement,</span><br><span class="line">  LineElement,</span><br><span class="line">  BarElement,</span><br><span class="line">  PointElement,</span><br><span class="line">  BarController,</span><br><span class="line">  BubbleController,</span><br><span class="line">  DoughnutController,</span><br><span class="line">  LineController,</span><br><span class="line">  PieController,</span><br><span class="line">  PolarAreaController,</span><br><span class="line">  RadarController,</span><br><span class="line">  ScatterController,</span><br><span class="line">  CategoryScale,</span><br><span class="line">  LinearScale,</span><br><span class="line">  LogarithmicScale,</span><br><span class="line">  RadialLinearScale,</span><br><span class="line">  TimeScale,</span><br><span class="line">  TimeSeriesScale,</span><br><span class="line">  Decimation,</span><br><span class="line">  Filler,</span><br><span class="line">  Legend,</span><br><span class="line">  Title,</span><br><span class="line">  Tooltip,</span><br><span class="line">  SubTitle</span><br><span class="line">);</span><br></pre></td></tr></tbody></table></figure>
+<p>哇好長一串，我相信大家應該都想要簡潔的程式碼，官方這裡有提供縮寫的版本：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> { Chart, registerables } <span class="keyword">from</span> <span class="string">'chart.js'</span>;</span><br><span class="line">Chart.register(...registerables);</span><br></pre></td></tr></tbody></table></figure>
+<p>突然覺得前途一片光明，真是簡簡單單美美麗麗XD<br>載入成功後，在要顯示圖表的地方加入</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"myChart"</span> <span class="attr">width</span>=<span class="string">"200"</span> <span class="attr">height</span>=<span class="string">"200"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Chart.js 可以用以下幾種方式取得 canvas</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ctx = <span class="built_in">document</span>.getElementById(<span class="string">'myChart'</span>);</span><br><span class="line"><span class="keyword">var</span> ctx = <span class="built_in">document</span>.getElementById(<span class="string">'myChart'</span>).getContext(<span class="string">'2d'</span>);</span><br><span class="line"><span class="keyword">var</span> ctx = $(<span class="string">'#myChart'</span>);</span><br><span class="line"><span class="keyword">var</span> ctx = <span class="string">'myChart'</span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>再跟著官方文件走，以下是官方提供的基本範例：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ctx = <span class="built_in">document</span>.getElementById(<span class="string">'myChart'</span>);</span><br><span class="line"><span class="keyword">var</span> myChart = <span class="keyword">new</span> Chart(ctx, {</span><br><span class="line">    <span class="attr">type</span>: <span class="string">'bar'</span>, <span class="comment">// 圖表類型</span></span><br><span class="line">    <span class="attr">data</span>: { <span class="comment">// 資料顯示</span></span><br><span class="line">        <span class="attr">labels</span>: [<span class="string">'Red'</span>, <span class="string">'Blue'</span>, <span class="string">'Yellow'</span>, <span class="string">'Green'</span>, <span class="string">'Purple'</span>, <span class="string">'Orange'</span>], <span class="comment">// 項目</span></span><br><span class="line">        <span class="attr">datasets</span>: [{</span><br><span class="line">            <span class="attr">label</span>: <span class="string">'# of Votes'</span>,</span><br><span class="line">            <span class="attr">data</span>: [<span class="number">12</span>, <span class="number">19</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">            <span class="attr">backgroundColor</span>: [ <span class="comment">// 背景色，官方文件裡有提供三種顏色顯示的寫法，rgba 不影響我都會沿用</span></span><br><span class="line">                <span class="string">'rgba(255, 99, 132, 0.2)'</span>, </span><br><span class="line">                <span class="string">'rgba(54, 162, 235, 0.2)'</span>,</span><br><span class="line">                <span class="string">'rgba(255, 206, 86, 0.2)'</span>,</span><br><span class="line">                <span class="string">'rgba(75, 192, 192, 0.2)'</span>,</span><br><span class="line">                <span class="string">'rgba(153, 102, 255, 0.2)'</span>,</span><br><span class="line">                <span class="string">'rgba(255, 159, 64, 0.2)'</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">borderColor</span>: [ <span class="comment">// 邊框色，但我不喜歡所以都會拔掉，整個刪掉也不會影響喔～</span></span><br><span class="line">                <span class="string">'rgba(255, 99, 132, 1)'</span>,</span><br><span class="line">                <span class="string">'rgba(54, 162, 235, 1)'</span>,</span><br><span class="line">                <span class="string">'rgba(255, 206, 86, 1)'</span>,</span><br><span class="line">                <span class="string">'rgba(75, 192, 192, 1)'</span>,</span><br><span class="line">                <span class="string">'rgba(153, 102, 255, 1)'</span>,</span><br><span class="line">                <span class="string">'rgba(255, 159, 64, 1)'</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">borderWidth</span>: <span class="number">1</span> <span class="comment">// 邊框拔掉的話這個也要記得拔掉</span></span><br><span class="line">        }]</span><br><span class="line">    },</span><br><span class="line">    <span class="attr">options</span>: {</span><br><span class="line">        <span class="attr">scales</span>: {</span><br><span class="line">            <span class="attr">y</span>: {</span><br><span class="line">                <span class="attr">beginAtZero</span>: <span class="literal">true</span></span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+<p>完成到這個地步就可以獲得一個圖表了～<br><img src="/images/js-chart-bar.png" width="70%" height="70%" title="js-chart-bar" alt="js-chart-bar" style="display: inline;"><br>Chart.js 可以調整的參數有很多，可以參考著官方文件去做調整看看～</p>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="https://www.chartjs.org/docs/latest/">Chart.js 文件</a><br><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10188031">[Day 30]Chart.js - 輕鬆完成資料視覺化</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/07/24/%E5%AD%B8%E7%BF%92%20/Ruby%20-%20sub-%E8%88%87-gsub/" rel="prev" title="[Ruby] sub 與 gsub">
+                  <i class="fa fa-chevron-left"></i> [Ruby] sub 與 gsub
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fas fa-crow"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tang</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"Tang-Tou-hexo","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
