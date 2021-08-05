@@ -19,33 +19,28 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"tang-tou.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="想把字串裡的某些字換成其他字的時候就可以使用sub 與 gsub，但這兩者在使用上還是不太一樣">
+<meta name="description" content="在學習 React 的途中，因為 JSX 的 {} 內只能放表達式，無法放入陳述句 (if...else…等)，所以在做條件判斷的時候會經常使用邏輯運算子。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Ruby] sub 與 gsub">
-<meta property="og:url" content="https://tang-tou.github.io/2021/07/24/%E5%AD%B8%E7%BF%92%20/Ruby%20-%20sub-%E8%88%87-gsub/index.html">
+<meta property="og:title" content="[JavaScript] 邏輯運算子">
+<meta property="og:url" content="https://tang-tou.github.io/2021/08/04/%E5%AD%B8%E7%BF%92%20/React-%E5%9C%A8JSX%E4%B8%AD%E5%A5%97%E7%94%A8CSS/index.html">
 <meta property="og:site_name" content="庭院深幾許">
-<meta property="og:description" content="想把字串裡的某些字換成其他字的時候就可以使用sub 與 gsub，但這兩者在使用上還是不太一樣">
+<meta property="og:description" content="在學習 React 的途中，因為 JSX 的 {} 內只能放表達式，無法放入陳述句 (if...else…等)，所以在做條件判斷的時候會經常使用邏輯運算子。">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://tang-tou.github.io/images/ruby-sub.png">
-<meta property="og:image" content="https://tang-tou.github.io/images/ruby-gsub.png">
-<meta property="og:image" content="https://tang-tou.github.io/images/ruby-sub!.png">
-<meta property="og:image" content="https://tang-tou.github.io/images/ruby-gsub!.png">
-<meta property="article:published_time" content="2021-07-24T08:09:47.000Z">
-<meta property="article:modified_time" content="2021-08-03T15:41:21.983Z">
+<meta property="article:published_time" content="2021-08-04T06:56:17.000Z">
+<meta property="article:modified_time" content="2021-08-05T08:26:30.099Z">
 <meta property="article:author" content="Tang">
-<meta property="article:tag" content="Ruby">
+<meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://tang-tou.github.io/images/ruby-sub.png">
 
 
-<link rel="canonical" href="https://tang-tou.github.io/2021/07/24/%E5%AD%B8%E7%BF%92%20/Ruby%20-%20sub-%E8%88%87-gsub/">
+<link rel="canonical" href="https://tang-tou.github.io/2021/08/04/%E5%AD%B8%E7%BF%92%20/React-%E5%9C%A8JSX%E4%B8%AD%E5%A5%97%E7%94%A8CSS/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://tang-tou.github.io/2021/07/24/%E5%AD%B8%E7%BF%92%20/Ruby%20-%20sub-%E8%88%87-gsub/","path":"2021/07/24/學習 /Ruby - sub-與-gsub/","title":"[Ruby] sub 與 gsub"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://tang-tou.github.io/2021/08/04/%E5%AD%B8%E7%BF%92%20/React-%E5%9C%A8JSX%E4%B8%AD%E5%A5%97%E7%94%A8CSS/","path":"2021/08/04/學習 /React-在JSX中套用CSS/","title":"[JavaScript] 邏輯運算子"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>[Ruby] sub 與 gsub | 庭院深幾許</title>
+<title>[JavaScript] 邏輯運算子 | 庭院深幾許</title>
   
 
 
@@ -112,7 +107,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目錄
@@ -125,6 +120,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-number">1.</span> <span class="nav-text">邏輯運算子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#false-%E5%80%BC"><span class="nav-number">1.1.</span> <span class="nav-text">false 值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E5%AD%90-OR"><span class="nav-number">1.2.</span> <span class="nav-text">|| 邏輯運算子 OR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#amp-amp-%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E5%AD%90-AND"><span class="nav-number">1.3.</span> <span class="nav-text">&amp;&amp; 邏輯運算子 AND</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -199,7 +195,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://tang-tou.github.io/2021/07/24/%E5%AD%B8%E7%BF%92%20/Ruby%20-%20sub-%E8%88%87-gsub/">
+    <link itemprop="mainEntityOfPage" href="https://tang-tou.github.io/2021/08/04/%E5%AD%B8%E7%BF%92%20/React-%E5%9C%A8JSX%E4%B8%AD%E5%A5%97%E7%94%A8CSS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -212,7 +208,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          [Ruby] sub 與 gsub
+          [JavaScript] 邏輯運算子
         </h1>
 
         <div class="post-meta-container">
@@ -223,14 +219,14 @@
       </span>
       <span class="post-meta-item-text">發表於</span>
 
-      <time title="創建時間：2021-07-24 16:09:47" itemprop="dateCreated datePublished" datetime="2021-07-24T16:09:47+08:00">2021-07-24</time>
+      <time title="創建時間：2021-08-04 14:56:17" itemprop="dateCreated datePublished" datetime="2021-08-04T14:56:17+08:00">2021-08-04</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-08-03 23:41:21" itemprop="dateModified" datetime="2021-08-03T23:41:21+08:00">2021-08-03</time>
+        <time title="修改時間：2021-08-05 16:26:30" itemprop="dateModified" datetime="2021-08-05T16:26:30+08:00">2021-08-05</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -251,8 +247,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2021/07/24/%E5%AD%B8%E7%BF%92%20/Ruby%20-%20sub-%E8%88%87-gsub/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/07/24/學習 /Ruby - sub-與-gsub/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2021/08/04/%E5%AD%B8%E7%BF%92%20/React-%E5%9C%A8JSX%E4%B8%AD%E5%A5%97%E7%94%A8CSS/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/08/04/學習 /React-在JSX中套用CSS/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -266,20 +262,19 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>想把字串裡的某些字換成其他字的時候就可以使用<code>sub</code> 與 <code>gsub</code>，但這兩者在使用上還是不太一樣</p>
+        <p>在學習 React 的途中，因為 JSX 的 <code>{}</code> 內只能放表達式，無法放入陳述句 (<code>if...else</code>…等)，所以在做條件判斷的時候會經常使用邏輯運算子。</p>
 <span id="more"></span>
 
-<ul>
-<li><code>sub</code> 替換掉 <strong>第一個</strong>  符合的字串並回傳新的字串，但不改變原本的值</li>
-<li><code>gsub</code> 替換掉 <strong>所有</strong> 符合的字串並回傳新的字串，但不改變原本的值</li>
-<li><code>sub!</code> 替換掉 <strong>第一個</strong> 符合的字串且改變原本的值</li>
-<li><code>gsub!</code> 替換掉 <strong>所有</strong> 符合的字串且改變原本的值</li>
+<p>第一次碰到邏輯運算子的時候，對於 <code>||</code> 及 <code>&amp;&amp;</code> 到底要取前後哪個值常常搞不清楚，而那時學完之後也沒有經常使用它，久而久之就淡忘一切了QHQ<br>趁著這次學 React 的時候再把邏輯運算子撿回來好好複習一次XD</p>
+<h1 id="邏輯運算子"><a href="#邏輯運算子" class="headerlink" title="邏輯運算子"></a>邏輯運算子</h1><h2 id="false-值"><a href="#false-值" class="headerlink" title="false 值"></a><code>false</code> 值</h2><p>在進到邏輯運算子之前，先將 false 值再記一次，對於往後的路會稍稍微順暢一點點(?)<br>在 JavaScript 裡，代表 false 的就只有這幾個： <code>0</code>、<code>NaN</code>、<code>null</code>、<code>undefined</code>、<code>""</code>。</p>
+<h2 id="邏輯運算子-OR"><a href="#邏輯運算子-OR" class="headerlink" title="|| 邏輯運算子 OR"></a>|| 邏輯運算子 OR</h2><ul>
+<li>若 <code>||</code> 前的值為 <code>true</code>，就回傳 <code>||</code> <strong>前面</strong>的值。<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="literal">true</span> || <span class="string">'不是我'</span>; <span class="comment">// 因為 true 為 true，所以 a 是 true</span></span><br><span class="line"><span class="keyword">const</span> b = <span class="literal">false</span> || <span class="string">'回傳我'</span>; <span class="comment">// 因為 false 為 false，所以 b 是 '回傳我'</span></span><br></pre></td></tr></tbody></table></figure></li>
 </ul>
-<p>用個簡單的範例～<br><code>sub</code> 的場合<br><img src="/images/ruby-sub.png" width="60%" height="60%" title="ruby-sub" alt="ruby-sub" style="display: inline;"></p>
-<p><code>gsub</code> 的場合<br><img src="/images/ruby-gsub.png" width="60%" height="60%" title="ruby-gsub" alt="ruby-gsub" style="display: inline;"></p>
-<p><code>sub!</code> 的場合<br><img src="/images/ruby-sub!.png" width="60%" height="60%" title="ruby-sub!" alt="ruby-sub!" style="display: inline;"></p>
-<p><code>gsub!</code> 的場合<br><img src="/images/ruby-gsub!.png" width="60%" height="60%" title="ruby-gsub!" alt="ruby-gsub!" style="display: inline;"></p>
-<p>參考資料：<br><a target="_blank" rel="noopener" href="https://www.dotnetperls.com/sub-ruby">Ruby Sub, gsub: Replace String</a></p>
+<h2 id="amp-amp-邏輯運算子-AND"><a href="#amp-amp-邏輯運算子-AND" class="headerlink" title="&amp;&amp; 邏輯運算子 AND"></a>&amp;&amp; 邏輯運算子 AND</h2><ul>
+<li>若 <code>&amp;&amp;</code> 前的值為 <code>true</code>，就回傳 <code>&amp;&amp;</code> <strong>後面</strong>的值。<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="literal">true</span> &amp;&amp; <span class="string">'回傳我'</span>; <span class="comment">// 因為 true 為 true，所以 a 是 '回傳我'</span></span><br><span class="line"><span class="keyword">const</span> b = <span class="literal">false</span> &amp;&amp; <span class="string">'不是我'</span>; <span class="comment">// 因為 false 為 false，所以 b 是 false</span></span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<p>希望透過這一次的重新複習不再搞混他們XD</p>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="https://www.fooish.com/javascript/boolean.html">JavaScript Boolean (布林值)</a><br><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10191343?sc=iThelpR">重新認識 JavaScript: Day 08 Boolean 的真假判斷</a></p>
 
     </div>
 
@@ -289,21 +284,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Ruby/" rel="tag"><i class="fa fa-tag"></i> Ruby</a>
+              <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/07/17/%E5%AD%B8%E7%BF%92%20/%20GitHub%20+%20Hexo%20%E6%9E%B6%E8%A8%AD%E9%83%A8%E8%90%BD%E6%A0%BC/" rel="prev" title="[Hexo] 架設部落格">
-                  <i class="fa fa-chevron-left"></i> [Hexo] 架設部落格
+                <a href="/2021/07/30/%E5%AD%B8%E7%BF%92%20/JavaScript-Chart.js%20%E8%B3%87%E6%96%99%E8%A6%96%E8%A6%BA%E5%8C%96/" rel="prev" title="[JavaScript] Chart.js 資料視覺化">
+                  <i class="fa fa-chevron-left"></i> [JavaScript] Chart.js 資料視覺化
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/07/30/%E5%AD%B8%E7%BF%92%20/JavaScript-Chart.js%20%E8%B3%87%E6%96%99%E8%A6%96%E8%A6%BA%E5%8C%96/" rel="next" title="[JavaScript] Chart.js 資料視覺化">
-                  [JavaScript] Chart.js 資料視覺化 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
