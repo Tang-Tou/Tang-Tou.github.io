@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>[JavaScript] 面試題-shift(), unshift() 手寫</title>
+      <link href="/2021/08/15/%E5%AD%B8%E7%BF%92%20/JS-shift-unshift/"/>
+      <url>/2021/08/15/%E5%AD%B8%E7%BF%92%20/JS-shift-unshift/</url>
+      
+        <content type="html"><![CDATA[<p><code>shift()</code> 及 <code>unshift()</code> 手寫</p><span id="more"></span><h1 id="shift"><a href="#shift" class="headerlink" title="shift()"></a>shift()</h1><p><code>shift()</code> 方法會移除並回傳陣列的第一個元素。此方法會改變陣列的長度。</p><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">2</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.myShift = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">  <span class="keyword">let</span> newArr = <span class="built_in">this</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>, arrLength = <span class="built_in">this</span>.length; i &lt; arrLength; i++){</span><br><span class="line">    <span class="built_in">this</span>[i-<span class="number">1</span>] = <span class="built_in">this</span>[i];</span><br><span class="line">  }</span><br><span class="line">  <span class="built_in">this</span>.length--;</span><br><span class="line">  <span class="built_in">this</span>[-<span class="number">1</span>] = <span class="literal">undefined</span>; <span class="comment">// 因為這樣寫 this[-1] 會有值，但理論上都應該要是 undefined 所以把 undefined 指給 this[-1]</span></span><br><span class="line">  <span class="keyword">return</span> newArr;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(arr.myShift()); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(arr); <span class="comment">// [1, 5, 6, 7]</span></span><br></pre></td></tr></tbody></table></figure><h1 id="unshift"><a href="#unshift" class="headerlink" title="unshift()"></a>unshift()</h1><p><code>unshift()</code> 方法會添加一個或多個元素至陣列的開頭，並且回傳陣列的新長度。</p><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.myUnShift = <span class="function"><span class="keyword">function</span>(<span class="params">...el</span>) </span>{</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>, arrLength = <span class="built_in">this</span>.length; i &lt; arrLength; i++){</span><br><span class="line">    el[el.length] = <span class="built_in">this</span>[i]; <span class="comment">// 以丟進來的參數為陣列的開頭，將 this 的元素丟在他的陣列後方</span></span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>, arrLength = el.length; i &lt; arrLength; i++){</span><br><span class="line">    <span class="built_in">this</span>[i] = el[i]; <span class="comment">// 讓 this 陣列裡的每一個值 = 上方得到的陣列結果 這樣才會讓 this 本身的值也有改變</span></span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> el.length;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(arr.myUnShift(<span class="number">4</span>, <span class="number">5</span>, <span class="string">'a'</span>)); <span class="comment">// 5</span></span><br><span class="line"><span class="built_in">console</span>.log(arr); <span class="comment">// [4,5,"a",1,2,3]</span></span><br></pre></td></tr></tbody></table></figure><h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><p><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/shift">MDN - shift()</a><br><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift">MDN - unshift()</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 面試題 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>[JavaScript] 面試題-map(), filter() 手寫</title>
+      <link href="/2021/08/14/%E5%AD%B8%E7%BF%92%20/JS-map-filter/"/>
+      <url>/2021/08/14/%E5%AD%B8%E7%BF%92%20/JS-map-filter/</url>
+      
+        <content type="html"><![CDATA[<p><code>map()</code> 及 <code>filter()</code> 手寫</p><span id="more"></span><h1 id="map"><a href="#map" class="headerlink" title="map()"></a>map()</h1><p><code>map()</code> 方法會建立一個新的陣列，其內容為原陣列的每一個元素經由回呼函式運算後所回傳的結果之集合。</p><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="built_in">Array</span>.prototype.myMap = <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>{</span><br><span class="line">  <span class="keyword">const</span> newArr = [];</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>,arrLength = <span class="built_in">this</span>.length; i &lt; arrLength; i++) {</span><br><span class="line">    newArr[i] = callback(<span class="built_in">this</span>[i], i, <span class="built_in">this</span>);</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> newArr;</span><br><span class="line">}</span><br><span class="line"><span class="built_in">console</span>.log(arr.map(<span class="function"><span class="params">i</span> =&gt;</span> i * <span class="number">2</span>));<span class="comment">// [2, 4, 6]</span></span><br></pre></td></tr></tbody></table></figure><h1 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h1><p><code>filter()</code> 方法會建立一個經指定之函式運算後，由原陣列中通過該函式檢驗之元素所構成的新陣列。</p><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="string">'ff'</span>];</span><br><span class="line"><span class="built_in">Array</span>.prototype.myFilter = <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>{</span><br><span class="line">  <span class="keyword">let</span> newArr = [], index = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>, arrLength = <span class="built_in">this</span>.length; i&lt; arrLength; i++) {</span><br><span class="line">    <span class="keyword">if</span>(callback(<span class="built_in">this</span>[i], i, <span class="built_in">this</span>)) { <span class="comment">// 篩選後為 true 才會丟入 newArr[]</span></span><br><span class="line">      newArr[index] = <span class="built_in">this</span>[i];</span><br><span class="line">      index++; <span class="comment">// 要記得 index++ 才會讓索引值往後跳</span></span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> newArr;</span><br><span class="line">}</span><br><span class="line"><span class="built_in">console</span>.log(arr.myFilter(<span class="function"><span class="params">el</span> =&gt;</span> <span class="keyword">typeof</span> el === <span class="string">'string'</span>)); <span class="comment">//['a','b','ff']</span></span><br></pre></td></tr></tbody></table></figure><h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><p><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/map">MDN - map()</a><br><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/filter">MDN - filter()</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 面試題 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>[JavaScript] 面試題-pop(), push() 手寫</title>
       <link href="/2021/08/14/%E5%AD%B8%E7%BF%92%20/JS-pop-push/"/>
       <url>/2021/08/14/%E5%AD%B8%E7%BF%92%20/JS-pop-push/</url>
