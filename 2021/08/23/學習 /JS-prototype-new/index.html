@@ -19,28 +19,28 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"tang-tou.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="曾經看過有面試題的考題為手寫出某些方法，所以就練習看看，一開始先從 pop() 及 push() 開始寫看看！">
+<meta name="description" content="之前曾提過 prototype 的繼承，當初是使用 new 的用法，但發現 Object.create 比較好用，雖然之前有提到，但也只是帶過而已">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[JavaScript] 面試題-實作 pop(), push()">
-<meta property="og:url" content="https://tang-tou.github.io/2021/08/14/%E5%AD%B8%E7%BF%92%20/JS-pop-push/index.html">
+<meta property="og:title" content="[JavaScript] 在 prototype 繼承時">
+<meta property="og:url" content="https://tang-tou.github.io/2021/08/23/%E5%AD%B8%E7%BF%92%20/JS-prototype-new/index.html">
 <meta property="og:site_name" content="庭院深幾許">
-<meta property="og:description" content="曾經看過有面試題的考題為手寫出某些方法，所以就練習看看，一開始先從 pop() 及 push() 開始寫看看！">
+<meta property="og:description" content="之前曾提過 prototype 的繼承，當初是使用 new 的用法，但發現 Object.create 比較好用，雖然之前有提到，但也只是帶過而已">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2021-08-14T09:44:12.000Z">
-<meta property="article:modified_time" content="2021-08-20T06:12:25.217Z">
+<meta property="article:published_time" content="2021-08-23T07:06:52.000Z">
+<meta property="article:modified_time" content="2021-08-23T07:26:24.862Z">
 <meta property="article:author" content="Tang">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://tang-tou.github.io/2021/08/14/%E5%AD%B8%E7%BF%92%20/JS-pop-push/">
+<link rel="canonical" href="https://tang-tou.github.io/2021/08/23/%E5%AD%B8%E7%BF%92%20/JS-prototype-new/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://tang-tou.github.io/2021/08/14/%E5%AD%B8%E7%BF%92%20/JS-pop-push/","path":"2021/08/14/學習 /JS-pop-push/","title":"[JavaScript] 面試題-實作 pop(), push()"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://tang-tou.github.io/2021/08/23/%E5%AD%B8%E7%BF%92%20/JS-prototype-new/","path":"2021/08/23/學習 /JS-prototype-new/","title":"[JavaScript] 在 prototype 繼承時"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>[JavaScript] 面試題-實作 pop(), push() | 庭院深幾許</title>
+<title>[JavaScript] 在 prototype 繼承時 | 庭院深幾許</title>
   
 
 
@@ -107,7 +107,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目錄
@@ -120,7 +120,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pop"><span class="nav-number">1.</span> <span class="nav-text">pop()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#push"><span class="nav-number">2.</span> <span class="nav-text">push()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">3.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -195,7 +194,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://tang-tou.github.io/2021/08/14/%E5%AD%B8%E7%BF%92%20/JS-pop-push/">
+    <link itemprop="mainEntityOfPage" href="https://tang-tou.github.io/2021/08/23/%E5%AD%B8%E7%BF%92%20/JS-prototype-new/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -208,7 +207,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          [JavaScript] 面試題-實作 pop(), push()
+          [JavaScript] 在 prototype 繼承時
         </h1>
 
         <div class="post-meta-container">
@@ -219,7 +218,7 @@
       </span>
       <span class="post-meta-item-text">發表於</span>
 
-      <time title="創建時間：2021-08-14 17:44:12" itemprop="dateCreated datePublished" datetime="2021-08-14T17:44:12+08:00">2021-08-14</time>
+      <time title="創建時間：2021-08-23 15:06:52" itemprop="dateCreated datePublished" datetime="2021-08-23T15:06:52+08:00">2021-08-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -227,7 +226,7 @@
       </span>
       <span class="post-meta-item-text">分類於</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E9%9D%A2%E8%A9%A6%E9%A1%8C/" itemprop="url" rel="index"><span itemprop="name">面試題</span></a>
+          <a href="/categories/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">學習筆記</span></a>
         </span>
     </span>
 
@@ -240,8 +239,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2021/08/14/%E5%AD%B8%E7%BF%92%20/JS-pop-push/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/08/14/學習 /JS-pop-push/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2021/08/23/%E5%AD%B8%E7%BF%92%20/JS-prototype-new/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/08/23/學習 /JS-prototype-new/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -255,14 +254,14 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>曾經看過有面試題的考題為手寫出某些方法，所以就練習看看，一開始先從 <code>pop()</code> 及 <code>push()</code> 開始寫看看！</p>
+        <p>之前曾提過 prototype 的繼承，當初是使用 <code>new</code> 的用法，但發現 <code>Object.create</code> 比較好用，雖然之前有提到，但也只是帶過而已</p>
 <span id="more"></span>
 
-<h1 id="pop"><a href="#pop" class="headerlink" title="pop()"></a>pop()</h1><p><code>pop()</code> 方法會移除並回傳陣列的最後一個元素。此方法會改變陣列的長度。</p>
-<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="built_in">Array</span>.prototype.myPop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">  <span class="keyword">let</span> result = <span class="built_in">this</span>[<span class="built_in">this</span>.length - <span class="number">1</span>];</span><br><span class="line">  <span class="built_in">this</span>.length = <span class="built_in">this</span>.length - <span class="number">1</span>; <span class="comment">// 因為 pop 會修改原始陣列的值，所以記得移除最後一個元素</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(arr.myPop(), arr1); <span class="comment">// 5</span></span><br><span class="line"><span class="built_in">console</span>.log(arr); <span class="comment">// [1, 2, 3, 4]</span></span><br></pre></td></tr></tbody></table></figure>
-<h1 id="push"><a href="#push" class="headerlink" title="push()"></a>push()</h1><p><code>push()</code> 方法會添加一個或多個元素至陣列的末端，並且回傳陣列的新長度。</p>
-<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="built_in">Array</span>.prototype.myPush = <span class="function"><span class="keyword">function</span>(<span class="params">...el</span>) </span>{ <span class="comment">// 因為 push 進去的參數不只有一個，所以用 ...el </span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; el.length; i++) {</span><br><span class="line">    <span class="built_in">this</span>[<span class="built_in">this</span>.length] = el[i];</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.length;</span><br><span class="line">}</span><br><span class="line"><span class="built_in">console</span>.log(arr.myPush(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>), arr); <span class="comment">// 7</span></span><br><span class="line"><span class="built_in">console</span>.log(arr); <span class="comment">// [1, 2, 3, 1, 2, 3, 4]</span></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/pop">MDN - pop()</a><br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/push">MDN - push()</a></p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params">colors</span>) </span>{</span><br><span class="line">  <span class="built_in">this</span>.colors = colors;  </span><br><span class="line">}</span><br><span class="line">Animal.prototype.getColor = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.colors;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Dog</span>(<span class="params">colors</span>) </span>{</span><br><span class="line">  Animal.call(<span class="built_in">this</span>, colors);</span><br><span class="line">}</span><br><span class="line">Dog.prototype = <span class="keyword">new</span> Animal();</span><br><span class="line">Dog.prototype.constructor = Dog;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> dog1 = <span class="keyword">new</span> Dog(<span class="string">'black'</span>);</span><br><span class="line"><span class="keyword">const</span> dog2 = <span class="keyword">new</span> Dog(<span class="string">'white'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(dog2.colors); <span class="comment">// white</span></span><br></pre></td></tr></tbody></table></figure>
+<p>第 10 行 <code>Dog.prototype = new Animal();</code> 這樣的寫法，會讓 <code>Dog</code> 的原型上有 <code>colors: undefined;</code> 這些不該出現的屬性，但改用 <code>Object.create</code>，就不會在原型上( Dog )產生，只會在物件( dog1, dog2 )上產生 Animal 新增的屬性</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params">colors</span>) </span>{</span><br><span class="line">  <span class="built_in">this</span>.colors = colors;  </span><br><span class="line">}</span><br><span class="line">Animal.prototype.getColor = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.colors;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Dog</span>(<span class="params">colors</span>) </span>{</span><br><span class="line">  Animal.call(<span class="built_in">this</span>, colors);</span><br><span class="line">}</span><br><span class="line">Dog.prototype = <span class="built_in">Object</span>.create(Animal.prototype);</span><br><span class="line">Dog.prototype.constructor = Dog; <span class="comment">// &lt;-要記得把 constructor 補回去，不然 dog1.constructor 會指向 Animal</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> dog1 = <span class="keyword">new</span> Dog(<span class="string">'black'</span>);</span><br><span class="line"><span class="keyword">const</span> dog2 = <span class="keyword">new</span> Dog(<span class="string">'white'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(dog2.colors); <span class="comment">// white</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>參考資料：<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Object/create">MDN - Object.create</a></p>
 
     </div>
 
@@ -279,14 +278,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/08/13/%E5%AD%B8%E7%BF%92%20/JS-%E9%9D%A2%E8%A9%A6%E9%A1%8C%E5%A0%86%E7%96%8A/" rel="prev" title="[JavaScript] 面試題-堆疊">
-                  <i class="fa fa-chevron-left"></i> [JavaScript] 面試題-堆疊
+                <a href="/2021/08/20/%E5%AD%B8%E7%BF%92%20/JS-new/" rel="prev" title="[JavaScript] 實作 new operator">
+                  <i class="fa fa-chevron-left"></i> [JavaScript] 實作 new operator
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/08/14/%E5%AD%B8%E7%BF%92%20/JS-map-filter/" rel="next" title="[JavaScript] 面試題-實作 map(), filter()">
-                  [JavaScript] 面試題-實作 map(), filter() <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>

@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>[JavaScript] 在 prototype 繼承時</title>
+      <link href="/2021/08/23/%E5%AD%B8%E7%BF%92%20/JS-prototype-new/"/>
+      <url>/2021/08/23/%E5%AD%B8%E7%BF%92%20/JS-prototype-new/</url>
+      
+        <content type="html"><![CDATA[<p>之前曾提過 prototype 的繼承，當初是使用 <code>new</code> 的用法，但發現 <code>Object.create</code> 比較好用，雖然之前有提到，但也只是帶過而已</p><span id="more"></span><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params">colors</span>) </span>{</span><br><span class="line">  <span class="built_in">this</span>.colors = colors;  </span><br><span class="line">}</span><br><span class="line">Animal.prototype.getColor = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.colors;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Dog</span>(<span class="params">colors</span>) </span>{</span><br><span class="line">  Animal.call(<span class="built_in">this</span>, colors);</span><br><span class="line">}</span><br><span class="line">Dog.prototype = <span class="keyword">new</span> Animal();</span><br><span class="line">Dog.prototype.constructor = Dog;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> dog1 = <span class="keyword">new</span> Dog(<span class="string">'black'</span>);</span><br><span class="line"><span class="keyword">const</span> dog2 = <span class="keyword">new</span> Dog(<span class="string">'white'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(dog2.colors); <span class="comment">// white</span></span><br></pre></td></tr></tbody></table></figure><p>第 10 行 <code>Dog.prototype = new Animal();</code> 這樣的寫法，會讓 <code>Dog</code> 的原型上有 <code>colors: undefined;</code> 這些不該出現的屬性，但改用 <code>Object.create</code>，就不會在原型上( Dog )產生，只會在物件( dog1, dog2 )上產生 Animal 新增的屬性</p><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params">colors</span>) </span>{</span><br><span class="line">  <span class="built_in">this</span>.colors = colors;  </span><br><span class="line">}</span><br><span class="line">Animal.prototype.getColor = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.colors;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Dog</span>(<span class="params">colors</span>) </span>{</span><br><span class="line">  Animal.call(<span class="built_in">this</span>, colors);</span><br><span class="line">}</span><br><span class="line">Dog.prototype = <span class="built_in">Object</span>.create(Animal.prototype);</span><br><span class="line">Dog.prototype.constructor = Dog; <span class="comment">// &lt;-要記得把 constructor 補回去，不然 dog1.constructor 會指向 Animal</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> dog1 = <span class="keyword">new</span> Dog(<span class="string">'black'</span>);</span><br><span class="line"><span class="keyword">const</span> dog2 = <span class="keyword">new</span> Dog(<span class="string">'white'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(dog2.colors); <span class="comment">// white</span></span><br></pre></td></tr></tbody></table></figure><p>參考資料：<br><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Object/create">MDN - Object.create</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 學習筆記 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>[JavaScript] 實作 new operator</title>
       <link href="/2021/08/20/%E5%AD%B8%E7%BF%92%20/JS-new/"/>
       <url>/2021/08/20/%E5%AD%B8%E7%BF%92%20/JS-new/</url>
